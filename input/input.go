@@ -13,7 +13,7 @@ func GetUserInput() (string, error) {
 
 	userInput, err := reader.ReadString('\n')
 	if err != nil {
-		return userInput, fmt.Errorf("couldn't create Url for OpenAI endpoint", err)
+		return userInput, fmt.Errorf("couldn't create Url for OpenAI endpoint: %v", err)
 	}
 	return userInput, nil
 }
