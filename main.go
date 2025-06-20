@@ -19,7 +19,8 @@ func main() {
 	}
 	client := oai.NewClient(apiKey)
 
-	textToEmbed, err := input.GetUserInput()
+	// textToEmbed, err := input.GetUserInput()
+	textToEmbed, err := input.GetFileInput("data/input_text")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error obtaining user input: %v\n", err)
 		os.Exit(1)

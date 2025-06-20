@@ -1,5 +1,10 @@
 *.png
 *.jpeg
+*.docx
+*.doc
+*.pdf
+data/*
 secrets.*
+output*
 *.env
 .DS_Store
