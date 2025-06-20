@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"golang-embedding-rag/embedding"
 	"golang-embedding-rag/input"
-	"log/slog"
 	"os"
 	"time"
 
@@ -42,6 +41,4 @@ func main() {
 	defer file.Close()
 
 	spew.Fdump(file, dataset)
-
-	slog.Info("Reached end of program")
 }

@@ -24,8 +24,9 @@ func NewClient(apiKey string) *Client {
 // CreateEmbeddings creates embeddings for the given text
 func (c *Client) CreateEmbeddings(text string) (*cohere.EmbedByTypeResponse, error) {
 	req := cohere.V2EmbedRequest{
-		Texts: []string{text},
-		Model: "embed-english-v3.0",
+		Texts:     []string{text},
+		Model:     "embed-english-v3.0",
+		InputType: cohere.EmbedInputType("search_query"),
 	}
 
 	resp, err := c.client.V2.Embed(context.Background(), &req)
