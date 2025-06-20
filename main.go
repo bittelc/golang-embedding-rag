@@ -19,10 +19,9 @@ func main() {
 	}
 	client := oai.NewClient(apiKey)
 
-	// textToEmbed, err := input.GetUserInput()
-	textToEmbed, err := input.GetFileInput("data/input_text")
+	textToEmbed, err := input.GetFileInput("data/input_text") // Can be switched out for GetUserInput()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error obtaining user input: %v\n", err)
+		fmt.Fprintf(os.Stderr, "error extracting text from file: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -31,7 +30,6 @@ func main() {
 		fmt.Fprintf(os.Stderr, "error creating request: %v\n", err)
 		os.Exit(1)
 	}
-	spew.Dump(req)
 	resp, err := client.CreateEmbeddings(req)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error with response from embeddings request: %v\n", err)
