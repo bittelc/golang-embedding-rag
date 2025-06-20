@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"golang-embedding-rag/embedding"
 	"golang-embedding-rag/input"
-	oai "golang-embedding-rag/openai"
 	"log/slog"
 	"os"
 	"time"
@@ -13,12 +13,12 @@ import (
 
 func main() {
 
-	apiKey := os.Getenv("OPENAI_API_KEY")
+	apiKey := os.Getenv("COHERE_API_KEY")
 	if apiKey == "" {
-		fmt.Fprintf(os.Stderr, "OpenAi key not set, required environment variable: $OPENAI_API_KEY")
+		fmt.Fprintf(os.Stderr, "Cohere API key not set, required environment variable: $COHERE_API_KEY")
 		os.Exit(1)
 	}
-	client := oai.NewClient(apiKey)
+	client := embedding.NewClient(apiKey)
 
 	textToEmbed, err := input.GetFileInput("data/input_text") // Can be switched out for GetUserInput()
 	if err != nil {
@@ -26,12 +26,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	req, err := client.CreateRequest(textToEmbed)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error creating request: %v\n", err)
-		os.Exit(1)
-	}
-	resp, err := client.CreateEmbeddings(req)
+	dataset, err := client.CreateEmbeddings(textToEmbed)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error with response from embeddings request: %v\n", err)
 		os.Exit(1)
@@ -46,7 +41,7 @@ func main() {
 	}
 	defer file.Close()
 
-	spew.Fdump(file, resp)
+	spew.Fdump(file, dataset)
 
 	slog.Info("Reached end of program")
 }
