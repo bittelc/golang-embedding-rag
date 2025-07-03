@@ -19,7 +19,8 @@ func main() {
 	}
 	client := embedding.NewClient(apiKey)
 
-	textToEmbed, err := input.GetFileInput("data/input_text") // Can be switched out for GetUserInput()
+	// textToEmbed, err := input.GetFileInput("data/input_text") // Can be switched out for GetUserInput()
+	textToEmbed, err := input.GetUserInput()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error extracting text from file: %v\n", err)
 		os.Exit(1)
@@ -39,6 +40,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer file.Close()
+	fmt.Println(dataset.GetEmbeddings())
 
 	spew.Fdump(file, dataset)
 }
